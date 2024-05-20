@@ -48,7 +48,7 @@ encodeListKnown, studentIds = encodeListKnownWithIds
 # print(studentIds)
 print("Encoded file loaded")
 
-modeType = 0   #  1 mi
+modeType = 0  # 1 mi
 counter = 0
 id = -1
 imgStudent = []
@@ -57,7 +57,7 @@ while True:
     success, img = cap.read()
 
     imgS = cv2.resize(img, (0, 0), None, 0.25, 0.25)
-    imgS = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    imgS = cv2.cvtColor(imgS, cv2.COLOR_BGR2RGB)
 
     facecurrentFrame = face_recognition.face_locations(imgS)
     encodeCurrentFrame = face_recognition.face_encodings(imgS, facecurrentFrame)
@@ -123,31 +123,32 @@ while True:
                 counter = 0
                 imgBackground[44:44 + 633, 808:808 + 414] = imgModelList[modeType]
 
-            if modeType != 0:
+        if modeType != 0:
 
-                if 10 < counter < 20:
-                    modeType = 3
+            if 10 < counter < 20:
+                modeType = 3
 
-                if counter <= 10:
-                    cv2.putText(imgBackground, str(studentInfo['total_attandance']), (861, 125),
-                                cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 1)
+            imgBackground[44:44 + 633, 808:808 + 414] = imgModelList[modeType]
+            if counter <= 10:
+                cv2.putText(imgBackground, str(studentInfo['total_attandance']), (861, 125),
+                            cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 1)
 
-                    cv2.putText(imgBackground, str(studentInfo['major']), (1006, 550),
-                                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
-                    cv2.putText(imgBackground, str(id), (1006, 493),
-                                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
-                    cv2.putText(imgBackground, str(studentInfo['standing']), (910, 625),
-                                cv2.FONT_HERSHEY_SIMPLEX, 0.6, (100, 100, 100), 1)
-                    cv2.putText(imgBackground, str(studentInfo['year']), (1025, 625),
-                                cv2.FONT_HERSHEY_SIMPLEX, 0.6, (100, 100, 100), 1)
+                cv2.putText(imgBackground, str(studentInfo['major']), (1006, 550),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
+                cv2.putText(imgBackground, str(id), (1006, 493),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
+                cv2.putText(imgBackground, str(studentInfo['standing']), (910, 625),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.6, (100, 100, 100), 1)
+                cv2.putText(imgBackground, str(studentInfo['year']), (1025, 625),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.6, (100, 100, 100), 1)
 
-                    (w, h), _ = cv2.getTextSize(studentInfo['name'], cv2.FONT_HERSHEY_COMPLEX, 1, 1)
-                    offset = (414 - w) // 2
+                (w, h), _ = cv2.getTextSize(studentInfo['name'], cv2.FONT_HERSHEY_COMPLEX, 1, 1)
+                offset = (414 - w) // 2
 
-                    cv2.putText(imgBackground, str(studentInfo['name']), (808 + offset, 445),
-                                cv2.FONT_HERSHEY_SIMPLEX, 1, (50, 50, 50), 1)
+                cv2.putText(imgBackground, str(studentInfo['name']), (808 + offset, 445),
+                            cv2.FONT_HERSHEY_SIMPLEX, 1, (50, 50, 50), 1)
 
-                    imgBackground[175:175 + 216, 909:909 + 216] = imgStudent
+                imgBackground[175:175 + 216, 909:909 + 216] = imgStudent
 
                 counter += 1
 
