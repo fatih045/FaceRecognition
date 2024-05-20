@@ -110,12 +110,22 @@ while True:
 
                 datetimeObject = datetime.strptime(studentInfo['last_attandance_time'], "%Y-%m-%d %H:%M:%S")
 
-                secondElapsed = (datetime.now() - datetimeObject)
-                print(secondElapsed)
+                secondElapsed = (datetime.now() - datetimeObject).total_seconds()
+                #
+                if secondElapsed > 30:
+                    ref = db.reference(f'Students/{id}')
+                    studentInfo['total_attandance'] += 1
+                    ref.child('total_attandance').set(studentInfo['total_attandance'])
+                    ref.child('last_attandance_time').set(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
-                ref = db.reference(f'Students/{id}')
-                studentInfo['total_attandance'] += 1
-                ref.child('last_attandance_time').set(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+                #
+
+
+                # print(secondElapsed)
+                #
+                # ref = db.reference(f'Students/{id}')
+                # studentInfo['total_attandance'] += 1
+                # ref.child('last_attandance_time').set(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
             # bu else bozuk
             else:
